@@ -1,6 +1,15 @@
+import { useState } from "react";
+
 import Header from "./Header";
 
 function Login() {
+
+    const [isSignInForm, setIsSignInForm] = useState(true)
+
+    const toggleSignInForm = () => {
+        setIsSignInForm(prev => !prev)
+    }
+
     return (
         <div>
             <Header />
@@ -10,24 +19,62 @@ function Login() {
                     alt=""
                 />
             </div>
-            <div className="flex justify-center items-center">
-                <form className="relative bg-gray-500 p-12 w-3/12">
+            <div className="flex justify-center items-center min-h-screen">
+                <form className="relative bg-black/80 p-12 w-3/12 text-white rounded">
+                    <h1 className="font-bold text-3xl text-center pb-4">
+                        {isSignInForm ? "Sign In" : "Sign Up"}
+                    </h1>
+
+                    {/* Full name */}
+                    {!isSignInForm && (
+                        <input
+                            type="text"
+                            placeholder="Full Name"
+                            className="p-3 my-3 bg-gray-400 text-black w-full rounded"
+                        />
+                    )}
+
+                    {/* Email address */}
                     <input
                         type="email"
                         placeholder="Email address"
-                        className="p-2 m-2 bg-white"
+                        className="p-3 my-3 bg-gray-400 text-black w-full rounded"
                     />
+
+                    {/* Password */}
                     <input
                         type="password"
                         placeholder="Password"
-                        className="m-2 p-2 bg-white"
+                        className="p-3 my-3 bg-gray-400 text-black w-full rounded"
                     />
-                    <button
-                        type="submit"
-                        className="p-2 m-4 bg-red-700"
-                    >
-                        Sign In
-                    </button>
+
+                    {/* Sign up & Sign in buttons */}
+                    {
+                        isSignInForm ?
+                            <button type="submit"
+                                className="p-3 my-5 bg-red-700 text-white w-full font-bold rounded"
+                            >
+                                Sign In
+                            </button>
+                            :
+                            <button type="submit"
+                                className="p-3 my-5 bg-red-700 text-white w-full font-bold rounded"
+                            >
+                                Sign Up
+                            </button>
+                    }
+
+                    {/* Sign up & Sign in links */}
+                    {isSignInForm ?
+                        <p className="py-2">
+                            New to Netflix? <span onClick={toggleSignInForm} className="cursor-pointer text-blue-700">Sign up now</span>
+                        </p>
+                        :
+                        <p className="py-2">
+                            Already registered? <span onClick={toggleSignInForm} className="cursor-pointer text-blue-700">Sign in</span>
+                        </p>
+                    }
+
                 </form>
             </div>
         </div>
