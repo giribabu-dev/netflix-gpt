@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Header from "./Header";
+import { checkSignInData } from "../utils/validate";
 
 function Login() {
 
     const [isSignInForm, setIsSignInForm] = useState(true)
+    const [errorMessage, setErrorMessage] = useState(null)
+
+    const fullname = useRef(null)
+    const email = useRef(null)
+    const password = useRef(null)
 
     const toggleSignInForm = () => {
         setIsSignInForm(prev => !prev)
-    }
+    };
+
+    const handleUserForm = (e) => {
+        e.preventDefault()
+
+        // Validate user form data
+        const message = checkSignInData(email.current.value, password.current.value)
+        setErrorMessage(message)
+    };
 
     return (
         <div>
@@ -30,7 +44,8 @@ function Login() {
                         <input
                             type="text"
                             placeholder="Full Name"
-                            className="p-3 my-3 bg-gray-400 text-black w-full rounded"
+                            className="p-3 my-3 bg-gray-400 text-black w-full rounded outline-0"
+                            ref={fullname}
                         />
                     )}
 
@@ -38,31 +53,29 @@ function Login() {
                     <input
                         type="email"
                         placeholder="Email address"
-                        className="p-3 my-3 bg-gray-400 text-black w-full rounded"
+                        className="p-3 my-3 bg-gray-400 text-black w-full rounded outline-0"
+                        ref={email}
+                        required
                     />
 
                     {/* Password */}
                     <input
                         type="password"
                         placeholder="Password"
-                        className="p-3 my-3 bg-gray-400 text-black w-full rounded"
+                        className="p-3 my-3 bg-gray-400 text-black w-full rounded outline-0"
+                        ref={password}
+                        required
                     />
 
+                    <p className="text-red-500">{errorMessage}</p>
+
                     {/* Sign up & Sign in buttons */}
-                    {
-                        isSignInForm ?
-                            <button type="submit"
-                                className="p-3 my-5 bg-red-700 text-white w-full font-bold rounded"
-                            >
-                                Sign In
-                            </button>
-                            :
-                            <button type="submit"
-                                className="p-3 my-5 bg-red-700 text-white w-full font-bold rounded"
-                            >
-                                Sign Up
-                            </button>
-                    }
+                    <button type="submit"
+                        className="p-3 my-5 bg-red-700 text-white w-full font-bold rounded cursor-pointer"
+                        onClick={handleUserForm}
+                    >
+                        {isSignInForm ? "Sign In" : "Sign Up"}
+                    </button>
 
                     {/* Sign up & Sign in links */}
                     {isSignInForm ?

@@ -2,9 +2,12 @@
 
 - Created React project using Vite
 - Configured Tailwind CSS with Vite
-- Components
-    - Header Component
-    - Login Form
+- Header Component
+- Routing
+- Login Form
+- Sign Up Form
+- Form Validation
+- useRef Hook
 
 # Features:
 =============
