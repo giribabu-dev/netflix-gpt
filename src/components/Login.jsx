@@ -14,6 +14,7 @@ function Login() {
 
     const toggleSignInForm = () => {
         setIsSignInForm(prev => !prev)
+        setErrorMessage(null)
     };
 
     const handleUserForm = (e) => {
