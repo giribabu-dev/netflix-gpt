@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import Header from "./Header";
 import { checkSignInData } from "../utils/validate";
@@ -13,6 +14,8 @@ function Login() {
     const fullname = useRef(null)
     const email = useRef(null)
     const password = useRef(null)
+
+    const navigate = useNavigate()
 
     const toggleSignInForm = () => {
         setIsSignInForm(prev => !prev)
@@ -41,6 +44,7 @@ function Login() {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     console.log("Signed Up User:", user);
+                    navigate("/browse")
                 })
                 .catch((error) => {
                     console.log(error)
@@ -57,6 +61,7 @@ function Login() {
                 .then((response) => {
                     const data = response.user;
                     console.log("Sign In User: ", data)
+                    navigate("/browse")
                 })
                 .catch((error) => {
                     console.log(error)

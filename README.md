@@ -9,8 +9,10 @@
 - Form Validation
 - useRef Hook
 - Firebase Setup
-- Deployed Application
-- User Sign Up & Sign In functionality
+- Deployed Application to Production
+- Create SignUp User Account
+- Implement SignIn User API
+- Created Redux Store with userSlice for storing user details
 
 # Features:
 =============
@@ -30,3 +32,8 @@
 - Netflix GPT
     - Search Bar
     - Movie Suggestions
+
+# Libraries:
+=============
+- npm install -D @reduxjs/toolkit
+- npm install react-redux
