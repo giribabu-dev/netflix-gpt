@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Header from "./Header";
 import { checkSignInData } from "../utils/validate";
 import { auth } from "../utils/firebase";
+import { addUser } from "../utils/userSlice";
 
 function Login() {
 
@@ -16,6 +18,7 @@ function Login() {
     const password = useRef(null)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const toggleSignInForm = () => {
         setIsSignInForm(prev => !prev)
@@ -43,8 +46,25 @@ function Login() {
             )
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    console.log("Signed Up User:", user);
-                    navigate("/browse")
+
+                    updateProfile(user, {
+                        displayName: fullname.current?.value || "",
+                        photoURL: "https://avatars.githubusercontent.com/u/175282174?s=400&u=00b101bb0877a8a6371d1bd6bea7b7a90f5456e6&v=4"
+                    })
+                        .then(() => {
+                            // Profile updated
+                            const { displayName, email, photoURL, uid } = auth.currentUser
+                            dispatch(addUser({
+                                uid: uid,
+                                email: email,
+                                displayName: displayName,
+                                photoURL: photoURL
+                            }))
+                            navigate("/browse")
+                        }).catch((error) => {
+                            // An error occurred
+                            setErrorMessage(error.message)
+                        })
                 })
                 .catch((error) => {
                     console.log(error)
