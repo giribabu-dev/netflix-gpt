@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Header from "./Header";
@@ -17,7 +16,6 @@ function Login() {
     const email = useRef(null)
     const password = useRef(null)
 
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const toggleSignInForm = () => {
@@ -54,20 +52,20 @@ function Login() {
                         .then(() => {
                             // Profile updated
                             const { displayName, email, photoURL, uid } = auth.currentUser
-                            dispatch(addUser({
-                                uid: uid,
-                                email: email,
-                                displayName: displayName,
-                                photoURL: photoURL
-                            }))
-                            navigate("/browse")
+                            dispatch(
+                                addUser({
+                                    uid: uid,
+                                    email: email,
+                                    displayName: displayName,
+                                    photoURL: photoURL
+                                })
+                            )
                         }).catch((error) => {
                             // An error occurred
                             setErrorMessage(error.message)
                         })
                 })
                 .catch((error) => {
-                    console.log(error)
                     setErrorMessage(error.message)
                 })
         }
@@ -80,15 +78,11 @@ function Login() {
             )
                 .then((response) => {
                     const data = response.user;
-                    console.log("Sign In User: ", data)
-                    navigate("/browse")
                 })
                 .catch((error) => {
-                    console.log(error)
                     setErrorMessage(error.message)
                 })
         }
-
     };
 
     return (

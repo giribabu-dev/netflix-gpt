@@ -16,6 +16,10 @@
 - Implemented SignOut
 - Updated User Profile
 
+- Bug Fix: Sign-up user displayName and photoURL update
+- Bug Fix: If the user is not logged in redirect to login page
+- Bug Fix: If the user is logged redirect to browse page
+
 # Features:
 =============
 - Authentication
