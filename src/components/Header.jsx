@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO } from "../utils/constants";
 
 function Header() {
 
@@ -22,7 +23,7 @@ function Header() {
     };
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in
                 const { uid, email, displayName, photoURL } = user;
@@ -43,12 +44,15 @@ function Header() {
                 navigate("/")
             }
         })
+
+        // unsubscribe when component unmounts
+        return () => unsubscribe();
     }, []);
 
     return (
         <div className="absolute w-full px-8 py-2 bg-linear-to-b from-black z-10 flex justify-between items-center">
             <img
-                src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2026-01-09/consent/87b6a5c0-0104-4e96-a291-092c11350111/019ae4b5-d8fb-7693-90ba-7a61d24a8837/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+                src={LOGO}
                 alt="logo"
                 className="w-60"
             />

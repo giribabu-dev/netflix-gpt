@@ -6,6 +6,7 @@ import Header from "./Header";
 import { checkSignInData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 function Login() {
 
@@ -47,7 +48,7 @@ function Login() {
 
                     updateProfile(user, {
                         displayName: fullname.current?.value || "",
-                        photoURL: "https://avatars.githubusercontent.com/u/175282174?s=400&u=00b101bb0877a8a6371d1bd6bea7b7a90f5456e6&v=4"
+                        photoURL: USER_AVATAR
                     })
                         .then(() => {
                             // Profile updated

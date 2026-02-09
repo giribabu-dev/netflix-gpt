@@ -20,6 +20,10 @@
 - Bug Fix: If the user is not logged in redirect to login page
 - Bug Fix: If the user is logged redirect to browse page
 
+- Unsubscribed to the onAuthStateChanged callback
+
+- Added constant file for hard-coded values
+
 # Features:
 =============
 - Authentication
